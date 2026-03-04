@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Velkyn Analytics Platform</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css?v=20260304-2">
+    <link rel="stylesheet" href="styles/sidebar.css?v=20260228-4">
+    <link rel="stylesheet" href="styles/home.css?v=20260228-8">
+    <link rel="stylesheet" href="styles/mc.css?v=20260227-11">
+    <link rel="stylesheet" href="styles/dashboard.css?v=20260228-4">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="mesh"></div>
+    <div class="orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <div class="topbar-trigger" id="trig"></div>
+
+    <div class="shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sb-logo">
+                <div class="sb-glyph sb-glyph--img"><img src="assets/images/velkyn-emblem.png" alt="Velkyn emblem" class="sb-glyph-img"/></div>
+                <div class="sb-text">
+                    <div class="sb-name">Velkyn</div>
+                    <div class="sb-sub">ANALYTICS PLATFORM</div>
+                </div>
+            </div>
+
+            <div class="sb-toggle" id="sb-btn" onclick="toggleSidebar()">
+                <svg viewBox="0 0 10 10">
+                    <path d="M7 2L3 5L4 3" stroke="#00bbff" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <div class="nav-group">Analytics</div>
+
+            <div class="nav-item active" data-nav="home" onclick="nav(this,'home')">
+                <span class="nav-icon">◻</span>
+                <span class="nav-label">Home</span>
+                <span class="nav-tip">Home</span>
+            </div>
+
+            <div class="nav-item" data-nav="dashboard" onclick="nav(this,'dashboard')">
+                <span class="nav-icon">▦</span>
+                <span class="nav-label">Dashboard</span>
+                <span class="nav-tip">Dashboard</span>
+            </div>
+
+            <div class="nav-item" data-nav="mc" onclick="nav(this,'mc')">
+                <span class="nav-icon">✪</span>
+                <span class="nav-label">Monte Carlo</span>
+                <span class="nav-tip">Monte Carlo</span>
+            </div>
+
+            <div class="nav-item" data-nav="bs-pricing" onclick="nav(this,'bs-pricing')">
+                <span class="nav-icon">⊚</span>
+                <span class="nav-label">Black-Scholes</span>
+                <span class="nav-tip">Black-Scholes</span>
+            </div>
+
+            <div class="nav-item" data-nav="binomial-european" onclick="nav(this,'binomial-european')">
+                <span class="nav-icon">◫</span>
+                <span class="nav-label">Binomial Tree</span>
+                <span class="nav-tip">Binomial Tree</span>
+            </div>
+
+            <div class="nav-item" data-nav="vol-smile" onclick="nav(this,'vol-smile')">
+                <span class="nav-icon">⧫</span>
+                <span class="nav-label">Volatility</span>
+                <span class="nav-tip">Volatility</span>
+            </div>
+
+            <div class="nav-item" data-nav="scenario-engine" onclick="nav(this,'scenario-engine')">
+                <span class="nav-icon">∆</span>
+                <span class="nav-label">Scenario Engine</span>
+                <span class="nav-tip">Scenario Engine</span>
+            </div>
+
+            <div class="sb-div"></div>
+
+            <div class="nav-group">Tools</div>
+
+            <div class="nav-item" data-nav="multi-rate" onclick="nav(this,'multi-rate')">
+                <span class="nav-icon">⚡</span>
+                <span class="nav-label">Multi-Rate Engine</span>
+                <span class="nav-tip">Multi-Rate Engine</span>
+            </div>
+
+            <div class="nav-item" data-nav="batch-engine" onclick="nav(this,'batch-engine')">
+                <span class="nav-icon">⧉</span>
+                <span class="nav-label">Batch Engine</span>
+                <span class="nav-tip">Batch Engine</span>
+            </div>
+
+            <div class="nav-item" data-nav="results" onclick="nav(this,'results')">
+                <span class="nav-icon">🗂</span>
+                <span class="nav-label">Results</span>
+                <span class="nav-tip">Results</span>
+            </div>
+
+            <div class="nav-item" data-nav="history" onclick="nav(this,'history')">
+                <span class="nav-icon">⍟</span>
+                <span class="nav-label">History</span>
+                <span class="nav-tip">History</span>
+            </div>
+
+            <div class="nav-item" data-nav="live-market" onclick="nav(this,'live-market')">
+                <span class="nav-icon">◉</span>
+                <span class="nav-label">Live Market</span>
+                <span class="live-badge">LIVE</span>
+                <span class="nav-tip">Live Market</span>
+            </div>
+
+            <div class="sb-div"></div>
+
+            <div class="nav-group">System</div>
+
+            <div class="nav-item" data-nav="settings" onclick="nav(this,'settings')">
+                <span class="nav-icon">⚙</span>
+                <span class="nav-label">Settings</span>
+                <span class="nav-tip">Settings</span>
+            </div>
+
+            <div class="nav-item" data-nav="docs" onclick="nav(this,'docs')">
+                <span class="nav-icon">📘</span>
+                <span class="nav-label">Docs</span>
+                <span class="nav-tip">Docs</span>
+            </div>
+
+            <div class="nav-item" data-nav="about" onclick="nav(this,'about')">
+                <span class="nav-icon">ⓘ</span>
+                <span class="nav-label">About</span>
+                <span class="nav-tip">About</span>
+            </div>
+
+            <div class="sb-footer">
+                <div class="status-led"></div>
+                <span class="sb-status-txt">ALL SYSTEMS NOMINAL</span>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- TOPBAR -->
+            <div class="topbar" id="topbar" onmouseleave="schedHide()">
+                <div class="tb-left">
+                    SYS: <span>VELKYN-LOCAL</span> &nbsp;&nbsp;
+                    SESSION: <span>ACTIVE</span> &nbsp;&nbsp;
+                    UPTIME: <span id="uptime">00:00:00</span>
+                </div>
+
+                <div class="tb-right">
+                    <div class="t-chip"><span class="t-sym">BTC</span><span class="t-price">84,210</span><span class="t-up">↑ 1.24%</span></div>
+                    <div class="t-chip"><span class="t-sym">SPX</span><span class="t-price">5,842</span><span class="t-up">↑ 0.31%</span></div>
+                    <div class="t-chip"><span class="t-sym">VIX</span><span class="t-price">18.42</span><span class="t-up">↑ 2.15%</span></div>
+                    <div class="t-chip"><span class="t-sym">ETH</span><span class="t-price">3,241</span><span class="t-up">↑ 0.88%</span></div>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <!-- HOME PAGE -->
+                <div class="page active" id="home">
+                    <div class="hud-canvas">
+                        <div class="hex-bg"></div>
+                        <div class="hring hr1"></div>
+                        <div class="hring hr2"></div>
+                        <div class="hring hr3"></div>
+                        <div class="hring hr4"></div>
+                    </div>
+
+                    <div class="scan">
+                        <div class="ds ds1"></div>
+                        <div class="ds ds2"></div>
+                        <div class="ds ds3"></div>
+                        <div class="ds ds4"></div>
+                    </div>
+
+                    <!-- HERO -->
+                    <div class="hero">
+                        <div class="bk bk-tl"></div>
+                        <div class="bk bk-tr"></div>
+                        <div class="bk bk-bl"></div>
+                        <div class="bk bk-br"></div>
+
+                        <div class="hero-text">
+                            <div class="hero-ey">INITIALISING QUANT SUITE // v2.0</div>
+                            <div class="hero-h1">Velkyn <span class="grd">Analytics</span></div>
+                            <div class="hero-p">
+                                A production-style quantitative analytics workspace for pricing, risk, stress testing,
+                                and live market monitoring across modular valuation engines.
+                            </div>
+                        </div>
+
+                        <div class="hero-btns">
+                            <button class="btn-p" onclick="nav(document.querySelector('[data-nav=mc]'),'mc')">▶ Launch Engine</button>
+                            <button class="btn-o">⧉ View Docs</button>
+                        </div>
+                    </div>
+
+                    <!-- ENGINE CARDS -->
+                    <div class="eng-carousel">
+                        <div class="eng-grid">
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=dashboard]'),'dashboard')">
+                                <div class="eng-tag">Overview</div>
+                                <div class="eng-title">Dashboard</div>
+                                <div class="eng-desc">Cross-engine quant view with pricing comparisons and market overview.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=mc]'),'mc')">
+                                <div class="eng-tag">Pricing</div>
+                                <div class="eng-title">Monte Carlo</div>
+                                <div class="eng-desc">GBM path simulation, variance reduction, and distribution outputs.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-pricing')">
+                                <div class="eng-tag">Analytics</div>
+                                <div class="eng-title">Black Scholes</div>
+                                <div class="eng-desc">Closed-form pricing, Greeks, and implied volatility workflows.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-european')">
+                                <div class="eng-tag">Tree Model</div>
+                                <div class="eng-title">Binomial Tree</div>
+                                <div class="eng-desc">European/American valuation and convergence analysis in CRR trees.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=vol-smile]'),'vol-smile')">
+                                <div class="eng-tag">Volatility</div>
+                                <div class="eng-title">Volatility</div>
+                                <div class="eng-desc">Smile and surface modelling for strike/tenor volatility structure.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=multi-rate]'),'multi-rate')">
+                                <div class="eng-tag">Rates</div>
+                                <div class="eng-title">Multi-Rate Engine</div>
+                                <div class="eng-desc">Compare option pricing sensitivity across multiple interest-rate regimes.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=batch-engine]'),'batch-engine')">
+                                <div class="eng-tag">Batch</div>
+                                <div class="eng-title">Batch Engine</div>
+                                <div class="eng-desc">Run selected stock sets in one pass and inspect tabular outputs.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=history]'),'history')">
+                                <div class="eng-tag">Audit</div>
+                                <div class="eng-title">History</div>
+                                <div class="eng-desc">Track and review previous simulation runs and key output summaries.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=results]'),'results')">
+                                <div class="eng-tag">Outputs</div>
+                                <div class="eng-title">Results</div>
+                                <div class="eng-desc">Browse generated plots and datasets by session with integrated previews.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+
+                            <div class="eng-card" onclick="nav(document.querySelector('[data-nav=live-market]'),'live-market')">
+                                <div class="eng-tag">Live</div>
+                                <div class="eng-title">Live Market</div>
+                                <div class="eng-desc">Real-time style stock/crypto views with rolling market series charts.</div>
+                                <div class="eng-arrow">→</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="dashboard">
+                    <div class="dashx-page">
+                        <div class="dashx-head">
+                            <div class="dashx-title-wrap">
+                                <div class="dashx-ey">All Engines · Live</div>
+                                <div class="dashx-title">Analytics <span>Dashboard</span></div>
+                            </div>
+                            <div class="dashx-head-right">
+                                <div class="dashx-live-pill"><span class="dot"></span><span>STREAMING</span></div>
+                                <div class="dashx-clock" id="dash-clock">—</div>
+                                <button class="run-btn" onclick="runDashboardAll()">Start All Engines</button>
+                            </div>
+                        </div>
+
+                        <div class="dashx-controls card">
+                            <div class="dashx-controls-grid">
+                                <div class="inp"><label>Stock</label><select id="dash-ticker"></select></div>
+                                <div class="inp"><label>Market</label><select id="dash-market"><option value="NASDAQ">NASDAQ</option><option value="NYSE">NYSE</option><option value="INDEX">INDEX</option><option value="CRYPTO">CRYPTO</option></select></div>
+                                <div class="inp"><label>Strike (K)</label><input id="dash-k" type="number" value="120"></div>
+                                <div class="inp"><label>Time (T)</label><input id="dash-t" type="number" value="1" step="0.01"></div>
+                                <div class="inp"><label>Rate (r)</label><input id="dash-r" type="number" value="0.05" step="0.001"></div>
+                                <div class="inp"><label>Vol (σ)</label><input id="dash-sigma" type="number" value="0.25" step="0.01"></div>
+                            </div>
+                            <div id="dash-empty" class="emp-t">Awaiting unified run...</div>
+                        </div>
+
+                        <div class="dashx-kpis">
+                            <div class="dashx-kpi"><div class="kpi-lbl">Total Runs</div><div class="kpi-val" id="dash-kpi-runs">—</div><div class="kpi-sub" id="dash-kpi-runs-sub">history window</div></div>
+                            <div class="dashx-kpi"><div class="kpi-lbl">Avg Price</div><div class="kpi-val" id="dash-kpi-avg">—</div><div class="kpi-sub" id="dash-kpi-avg-sub">MC/BS/Binomial</div></div>
+                            <div class="dashx-kpi"><div class="kpi-lbl">ATM IV</div><div class="kpi-val" id="dash-kpi-iv">—</div><div class="kpi-sub" id="dash-kpi-iv-sub">smile midpoint</div></div>
+                            <div class="dashx-kpi"><div class="kpi-lbl">Net Delta</div><div class="kpi-val" id="dash-kpi-delta">—</div><div class="kpi-sub" id="dash-kpi-delta-sub">BS Greeks</div></div>
+                            <div class="dashx-kpi"><div class="kpi-lbl">Scenarios</div><div class="kpi-val" id="dash-kpi-scen">—</div><div class="kpi-sub" id="dash-kpi-scen-sub">stress grid</div></div>
+                            <div class="dashx-kpi"><div class="kpi-lbl">Batch Items</div><div class="kpi-val" id="dash-kpi-batch">—</div><div class="kpi-sub" id="dash-kpi-batch-sub">batch output</div></div>
+                        </div>
+
+                        <div class="dashx-layout">
+                            <div class="dashx-col">
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Monte Carlo Simulation</div></div>
+                                    <div class="card-body dashx-tall dashx-mc-body"><canvas id="dashMcPathsChart"></canvas></div>
+                                </div>
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Terminal Distribution</div></div>
+                                    <div class="card-body"><div class="dashx-dist" id="dashDistBars"></div></div>
+                                </div>
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Volatility Smile Curve</div></div>
+                                    <div class="card-body dashx-smile-body"><canvas id="dashSmileChart"></canvas></div>
+                                </div>
+                            </div>
+
+                            <div class="dashx-col">
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Pricing Model Comparison</div></div>
+                                    <div class="card-body"><canvas id="dashCompareChart"></canvas></div>
+                                </div>
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Rate Sensitivity Curve</div></div>
+                                    <div class="card-body"><canvas id="dashRateChart"></canvas></div>
+                                </div>
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Black-Scholes Engine</div></div>
+                                    <div class="card-body dashx-bs-body">
+                                        <div class="dashx-bs-meta">S=<span id="dash-bs-meta-s">—</span> · K=<span id="dash-bs-meta-k">—</span> · r=<span id="dash-bs-meta-r">—</span> · σ=<span id="dash-bs-meta-sigma">—</span> · T=<span id="dash-bs-meta-t">—</span></div>
+
+                                        <div class="dashx-bs-sec">Pricing</div>
+                                        <div class="dashx-bs-pricing-grid">
+                                            <div class="dashx-bs-price-card">
+                                                <div class="lbl">Selected Price</div>
+                                                <div class="val" id="dash-bs-selected">—</div>
+                                                <div class="sub">Call · ATM</div>
+                                            </div>
+                                            <div class="dashx-bs-price-card">
+                                                <div class="lbl">Call Price</div>
+                                                <div class="val c" id="dash-bs-call">—</div>
+                                                <div class="sub" id="dash-bs-d1d2">d1=— d2=—</div>
+                                            </div>
+                                            <div class="dashx-bs-price-card">
+                                                <div class="lbl">Put Price</div>
+                                                <div class="val p" id="dash-bs-put">—</div>
+                                                <div class="sub">Put-Call Parity ✓</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dashx-bs-sec">Greeks</div>
+                                        <div class="dashx-bs-greeks-grid">
+                                            <div class="dashx-bs-gk"><div class="sym d">Δ</div><div class="num" id="dash-greek-delta">—</div><div class="cap">Delta</div></div>
+                                            <div class="dashx-bs-gk"><div class="sym g">Γ</div><div class="num" id="dash-greek-gamma">—</div><div class="cap">Gamma</div></div>
+                                            <div class="dashx-bs-gk"><div class="sym v">ν</div><div class="num" id="dash-greek-vega">—</div><div class="cap">Vega</div></div>
+                                            <div class="dashx-bs-gk"><div class="sym t">Θ</div><div class="num" id="dash-greek-theta">—</div><div class="cap">Theta/d</div></div>
+                                            <div class="dashx-bs-gk"><div class="sym r">ρ</div><div class="num" id="dash-greek-rho">—</div><div class="cap">Rho</div></div>
+                                        </div>
+
+                                        <div class="dashx-bs-sec">Sensitivity Exposure</div>
+                                        <div class="dashx-bs-bars">
+                                            <div class="row"><div class="top"><span>Delta Exposure</span><span id="dash-bs-exp-delta-label">—</span></div><div class="track"><div class="fill d" id="dash-bs-exp-delta"></div></div></div>
+                                            <div class="row"><div class="top"><span>Vega Sensitivity</span><span id="dash-bs-exp-vega-label">—</span></div><div class="track"><div class="fill v" id="dash-bs-exp-vega"></div></div></div>
+                                            <div class="row"><div class="top"><span>Theta Decay (ann)</span><span id="dash-bs-exp-theta-label">—</span></div><div class="track"><div class="fill t" id="dash-bs-exp-theta"></div></div></div>
+                                            <div class="row"><div class="top"><span>Rho Sensitivity</span><span id="dash-bs-exp-rho-label">—</span></div><div class="track"><div class="fill r" id="dash-bs-exp-rho"></div></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dashx-col">
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Scenario Engine</div></div>
+                                    <div class="card-body dashx-scen-body">
+                                        <div class="dashx-scen-sub">Spot Shock · Vol Shock matrix</div>
+                                        <table class="dashx-table dashx-scen-table">
+                                            <thead><tr><th>Scenario</th><th>Spot Δ</th><th>Vol Δ</th><th>Price</th><th>vs Base</th></tr></thead>
+                                            <tbody id="dashScenarioBody"></tbody>
+                                        </table>
+                                        <div class="dashx-scen-range">
+                                            <div class="ttl">Price Range Across Scenarios</div>
+                                            <div class="track"><div class="marker" id="dashScenarioMarker"></div></div>
+                                            <div class="vals"><span id="dashScenarioMin">—</span><span id="dashScenarioBase">—</span><span id="dashScenarioMax">—</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card dashx-panel">
+                                    <div class="card-hd"><div class="card-title">Live Market</div></div>
+                                    <div class="card-body dashx-live-body">
+                                        <div class="dashx-live-controls">
+                                            <select id="dash-live-symbol"></select>
+                                        </div>
+                                        <div class="dashx-live-stats dashx-live-grid1">
+                                            <div><span>Price</span><b id="dash-live-price">—</b></div>
+                                            <div><span>Change</span><b id="dash-live-change-abs">—</b></div>
+                                            <div><span>% Chg</span><b id="dash-live-change">—</b></div>
+                                            <div><span>Volume</span><b id="dash-live-volume">—</b></div>
+                                        </div>
+                                        <div class="dashx-live-stats dashx-live-grid2">
+                                            <div><span>24h High</span><b id="dash-live-high">—</b></div>
+                                            <div><span>24h Low</span><b id="dash-live-low">—</b></div>
+                                            <div><span>Open</span><b id="dash-live-open">—</b></div>
+                                            <div><span>Mkt Cap</span><b id="dash-live-mcap">—</b></div>
+                                        </div>
+                                        <div class="dashx-live-chart"><canvas id="dashLiveChart"></canvas></div>
+                                        <div class="dashx-live-foot"><span id="dash-live-age">Last tick: —</span><span>Bid: <b id="dash-live-bid">—</b> Ask: <b id="dash-live-ask">—</b></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="page" id="mc">
+                <div class="mc-hd">
+                    <div class="mc-ey">Monte Carlo Engine</div>
+                    <div class="mc-h1">GBM Simulation & Pricing</div>
+                    <div class="mc-p">
+                        Simulate geometric Brownian motion paths, price derivatives, and analyse terminal distributions
+                        using variance reduction techniques.
+                    </div>
+                </div>
+
+                <!-- INPUT GRID -->
+                <div class="mc-ct">
+                    <div class="inp">
+                        <label>Stock</label>
+                        <select id="mc-ticker"></select>
+                    </div>
+
+                    <div class="inp">
+                        <label>Market</label>
+                        <input id="mc-market" type="text" value="—" readonly>
+                    </div>
+
+                    <div class="inp">
+                        <label>Spot Price (S₀)</label>
+                        <input id="mc-s0" type="number" value="100">
+                    </div>
+
+                    <div class="inp">
+                        <label>Strike (K)</label>
+                        <input id="mc-k" type="number" value="100">
+                    </div>
+
+                    <div class="inp">
+                        <label>Volatility (σ)</label>
+                        <input id="mc-sig" type="number" value="0.2" step="0.01">
+                    </div>
+
+                    <div class="inp">
+                        <label>Risk-Free Rate (r)</label>
+                        <input id="mc-r" type="number" value="0.05" step="0.001">
+                    </div>
+
+                    <div class="inp">
+                        <label>Time to Maturity (T)</label>
+                        <input id="mc-t" type="number" value="1" step="0.01">
+                    </div>
+
+                    <div class="inp">
+                        <label>Paths</label>
+                        <input id="mc-n" type="number" value="20000">
+                    </div>
+
+                    <div class="inp">
+                        <label>Steps</label>
+                        <input id="mc-steps" type="number" value="252">
+                    </div>
+
+                    <div class="inp">
+                        <label>Days (for Variable Days)</label>
+                        <input id="mc-days" type="number" value="252">
+                    </div>
+
+                    <div class="inp">
+                        <label>Option Type</label>
+                        <select id="mc-type">
+                            <option value="call">Call</option>
+                            <option value="put">Put</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- METHOD SELECTOR -->
+                <div class="pg-tabs mc-method-tabs">
+                    <div class="m-opt sel" tabindex="0" onclick="pickM(this)" data-method="basic" data-desc="Standard Monte Carlo simulation using direct GBM path sampling without variance-reduction adjustments.">Basic</div>
+                    <div class="m-opt" tabindex="0" onclick="pickM(this)" data-method="antithetic" data-desc="Uses paired random paths with opposite shocks to reduce variance and improve estimator stability.">Antithetic</div>
+                    <div class="m-opt" tabindex="0" onclick="pickM(this)" data-method="control" data-desc="Applies a control variate correction using a related known-value estimator to reduce pricing error.">Control Variate</div>
+                    <div class="m-opt" tabindex="0" onclick="pickM(this)" data-method="moment" data-desc="Adjusts simulated shocks to better match target distribution moments, improving numerical consistency.">Moment Matching</div>
+                    <div class="m-opt" tabindex="0" onclick="pickM(this)" data-method="variable_days" data-desc="Prices using a custom trading-day horizon so simulation length matches the specified day count.">Variable Days</div>
+                </div>
+
+                <!-- RUN BUTTON -->
+                <button id="mc-run-btn" class="run-btn" onclick="runMC()">Run Simulation</button>
+
+                <!-- EMPTY STATE -->
+                <div id="empt" class="emp-t">Awaiting simulation...</div>
+
+                <!-- RESULTS HEADER -->
+                <div id="rh" class="res-ct">
+                    <div class="rh-card bs-info-card" tabindex="0" data-desc="Monte Carlo estimate of the option value using simulated terminal payoffs discounted to present value.">
+                        <h3>Option Price</h3>
+                        <p id="mc-price">—</p>
+                    </div>
+
+                    <div class="rh-card bs-info-card" tabindex="0" data-desc="Estimated sampling uncertainty of the Monte Carlo price; lower values indicate more stable estimates.">
+                        <h3>Std Error</h3>
+                        <p id="mc-se">—</p>
+                    </div>
+
+                    <div class="rh-card bs-info-card" tabindex="0" data-desc="Approximate 95% confidence interval for the true option value implied by the Monte Carlo simulation.">
+                        <h3>95% CI</h3>
+                        <p id="mc-ci">—</p>
+                    </div>
+                </div>
+
+                <!-- CHARTS -->
+                <div id="cpaths" class="ct">
+                    <div class="cht-hd">Simulated Price Paths</div>
+                    <canvas id="pathsChart"></canvas>
+                </div>
+
+                <div id="cdist" class="ct">
+                    <div class="cht-hd">Terminal Distribution</div>
+                    <canvas id="distChart"></canvas>
+                </div>
+
+                </div>
+
+                <div class="page" id="bs-pricing">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-pricing')">BS Pricing</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-greeks')">BS Greeks</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-iv')">IV Solver</div>
+                    </div>
+                    <div class="mc-hd">
+                        <div class="mc-ey">Black–Scholes Engine</div>
+                        <div class="mc-h1">BS Pricing</div>
+                        <div class="mc-p">Closed-form European option pricing for call/put contracts.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="bs-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="bs-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="bs-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="bs-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="bs-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="bs-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="bs-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp">
+                            <label>Option Type</label>
+                            <select id="bs-type"><option value="call">Call</option><option value="put">Put</option></select>
+                        </div>
+                    </div>
+
+                    <button class="run-btn" onclick="runBSPricing()">Run BS Pricing</button>
+                    <div id="bs-pricing-empty" class="emp-t">Awaiting Black–Scholes pricing run...</div>
+
+                    <div id="bs-pricing-res" class="res-ct">
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="The model price for the currently selected option type (Call or Put) under the given inputs."><h3>Selected Price</h3><p id="bs-selected">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="The theoretical Black-Scholes value of a European call option using Spot, Strike, Time, Rate, and Volatility."><h3>Call Price</h3><p id="bs-call">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="The theoretical Black-Scholes value of a European put option using Spot, Strike, Time, Rate, and Volatility."><h3>Put Price</h3><p id="bs-put">—</p></div>
+                    </div>
+                </div>
+
+                <div class="page" id="bs-greeks">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-pricing')">BS Pricing</div>
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-greeks')">BS Greeks</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-iv')">IV Solver</div>
+                    </div>
+                    <div class="mc-hd">
+                        <div class="mc-ey">Black–Scholes Engine</div>
+                        <div class="mc-h1">BS Greeks</div>
+                        <div class="mc-p">Analytical Delta, Gamma, Vega, Theta, and Rho outputs.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="bsg-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="bsg-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="bsg-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="bsg-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="bsg-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="bsg-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="bsg-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp">
+                            <label>Option Type</label>
+                            <select id="bsg-type"><option value="call">Call</option><option value="put">Put</option></select>
+                        </div>
+                    </div>
+
+                    <button class="run-btn" onclick="runBSGreeks()">Run BS Greeks</button>
+                    <div id="bs-greeks-empty" class="emp-t">Awaiting Greeks run...</div>
+
+                    <div id="bs-greeks-res" class="res-ct">
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Delta measures how much the option price changes for a +1 move in the underlying spot price."><h3>Delta</h3><p id="bsg-delta">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Gamma measures how quickly Delta changes for a +1 move in spot; it is the curvature of option value vs spot."><h3>Gamma</h3><p id="bsg-gamma">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Vega measures option sensitivity to implied volatility; it is the price change for a 1.00 increase in volatility."><h3>Vega</h3><p id="bsg-vega">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Theta measures time decay; it is the option price change as time to expiry decreases, holding other inputs constant."><h3>Theta</h3><p id="bsg-theta">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Rho measures sensitivity to interest rates; it is the option price change for a +1.00 increase in the risk-free rate."><h3>Rho</h3><p id="bsg-rho">—</p></div>
+                    </div>
+
+                    <div id="bs-greeks-chart-wrap" class="ct">
+                        <div class="cht-hd">Greeks Snapshot</div>
+                        <canvas id="bsGreeksChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="page" id="bs-iv">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-pricing')">BS Pricing</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-greeks')">BS Greeks</div>
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=bs-pricing]'),'bs-iv')">IV Solver</div>
+                    </div>
+                    <div class="mc-hd">
+                        <div class="mc-ey">Black–Scholes Engine</div>
+                        <div class="mc-h1">IV Solver</div>
+                        <div class="mc-p">Solve implied volatility from market option prices.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="iv-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="iv-market-name" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="iv-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="iv-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="iv-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="iv-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Market Price</label><input id="iv-market" type="number" value="10.5" step="0.01"></div>
+                        <div class="inp">
+                            <label>Option Type</label>
+                            <select id="iv-type"><option value="call">Call</option><option value="put">Put</option></select>
+                        </div>
+                    </div>
+
+                    <button class="run-btn" onclick="runBSIV()">Solve IV</button>
+                    <div id="bs-iv-empty" class="emp-t">Awaiting IV solve...</div>
+
+                    <div id="bs-iv-res" class="res-ct">
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="The implied volatility that makes the Black-Scholes model price match the observed market option price."><h3>Implied Vol</h3><p id="iv-sigma">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="The Black-Scholes option value computed using the solved implied volatility."><h3>Model Price</h3><p id="iv-model">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Absolute difference between market option price and model price after solving for implied volatility."><h3>Abs Error</h3><p id="iv-error">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Number of solver iterations required to converge to the implied volatility estimate."><h3>Iterations</h3><p id="iv-iter">—</p></div>
+                    </div>
+                </div>
+
+                <div class="page" id="binomial-european">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-european')">European</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-american')">American</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-convergence')">Convergence</div>
+                    </div>
+                    <div class="mc-hd"><div class="mc-ey">Binomial Engine</div><div class="mc-h1">European Pricing</div></div>
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="beu-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="beu-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="beu-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="beu-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="beu-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="beu-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="beu-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>Steps (N)</label><input id="beu-n" type="number" value="200"></div>
+                        <div class="inp"><label>Option Type</label><select id="beu-type"><option value="call">Call</option><option value="put">Put</option></select></div>
+                    </div>
+                    <button class="run-btn" onclick="runBinomialEuropean()">Run Binomial European</button>
+                    <div id="bin-eu-empty" class="emp-t">Awaiting run...</div>
+                    <div id="bin-eu-res" class="res-ct">
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Option value produced by the binomial tree under the selected parameters."><h3>Binomial Price</h3><p id="bin-eu-price">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Black-Scholes price used as a reference benchmark for the same option inputs."><h3>BS Benchmark</h3><p id="bin-eu-bs">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Absolute difference between binomial and Black-Scholes prices; smaller values indicate closer agreement."><h3>Abs Diff</h3><p id="bin-eu-diff">—</p></div>
+                    </div>
+                </div>
+
+                <div class="page" id="binomial-american">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-european')">European</div>
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-american')">American</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-convergence')">Convergence</div>
+                    </div>
+                    <div class="mc-hd"><div class="mc-ey">Binomial Engine</div><div class="mc-h1">American Pricing</div></div>
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="bam-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="bam-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="bam-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="bam-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="bam-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="bam-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="bam-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>Steps (N)</label><input id="bam-n" type="number" value="200"></div>
+                        <div class="inp"><label>Option Type</label><select id="bam-type"><option value="call">Call</option><option value="put">Put</option></select></div>
+                    </div>
+                    <button class="run-btn" onclick="runBinomialAmerican()">Run Binomial American</button>
+                    <div id="bin-am-empty" class="emp-t">Awaiting run...</div>
+                    <div id="bin-am-res" class="res-ct">
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="American option value from the binomial tree, allowing early exercise at each step."><h3>American Price</h3><p id="bin-am-price">—</p></div>
+                    </div>
+                </div>
+
+                <div class="page" id="binomial-convergence">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-european')">European</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-american')">American</div>
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=binomial-european]'),'binomial-convergence')">Convergence</div>
+                    </div>
+                    <div class="mc-hd"><div class="mc-ey">Binomial Engine</div><div class="mc-h1">Convergence</div></div>
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="bc-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="bc-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="bc-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="bc-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="bc-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="bc-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="bc-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>N Start</label><input id="bc-start" type="number" value="25"></div>
+                        <div class="inp"><label>N End</label><input id="bc-end" type="number" value="500"></div>
+                        <div class="inp"><label>N Step</label><input id="bc-step" type="number" value="25"></div>
+                        <div class="inp"><label>Option Type</label><select id="bc-type"><option value="call">Call</option><option value="put">Put</option></select></div>
+                    </div>
+                    <button class="run-btn" onclick="runBinomialConvergence()">Run Convergence</button>
+                    <div id="bin-conv-empty" class="emp-t">Awaiting convergence run...</div>
+                    <div id="bin-conv-wrap" class="ct">
+                        <div class="cht-hd">Convergence Plot</div>
+                        <canvas id="binConvChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="page" id="vol-smile">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=vol-smile]'),'vol-smile')">IV Smile</div>
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=vol-smile]'),'vol-surface')">IV Surface</div>
+                    </div>
+                    <div class="mc-hd"><div class="mc-ey">Volatility Engine</div><div class="mc-h1">IV Smile</div></div>
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="vs-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="vs-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="vs-s" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="vs-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="vs-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Base Vol</label><input id="vs-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>Strike Min</label><input id="vs-kmin" type="number" value="80"></div>
+                        <div class="inp"><label>Strike Max</label><input id="vs-kmax" type="number" value="120"></div>
+                        <div class="inp"><label>Points</label><input id="vs-n" type="number" value="25"></div>
+                    </div>
+                    <button class="run-btn" onclick="runVolSmile()">Run IV Smile</button>
+                    <div id="vol-smile-empty" class="emp-t">Awaiting smile run...</div>
+                    <div id="vol-smile-wrap" class="ct">
+                        <div class="cht-hd">Smile Curve</div>
+                        <canvas id="volSmileChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="page" id="vol-surface">
+                    <div class="pg-tabs" style="padding-top: 18px;">
+                        <div class="m-opt" onclick="nav(document.querySelector('[data-nav=vol-smile]'),'vol-smile')">IV Smile</div>
+                        <div class="m-opt sel" onclick="nav(document.querySelector('[data-nav=vol-smile]'),'vol-surface')">IV Surface</div>
+                    </div>
+                    <div class="mc-hd"><div class="mc-ey">Volatility Engine</div><div class="mc-h1">IV Surface</div></div>
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="vsurf-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="vsurf-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="vsurf-s" type="number" value="100"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="vsurf-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Base Vol</label><input id="vsurf-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>Strikes (CSV)</label><input id="vsurf-strikes" type="text" value="80,90,100,110,120"></div>
+                        <div class="inp"><label>Maturities (CSV)</label><input id="vsurf-mats" type="text" value="0.25,0.5,1,2"></div>
+                    </div>
+                    <button class="run-btn" onclick="runVolSurface()">Run IV Surface</button>
+                    <div id="vol-surface-empty" class="emp-t">Awaiting surface run...</div>
+                    <div id="vol-surface-wrap" class="ct">
+                        <div class="cht-hd">Surface Snapshot</div>
+                        <canvas id="volSurfaceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="page" id="multi-rate">
+                    <div class="mc-hd">
+                        <div class="mc-ey">Tools</div>
+                        <div class="mc-h1">Multi-Rate Engine</div>
+                        <div class="mc-p">Price one option across multiple interest-rate scenarios.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="multi-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="multi-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Strike (K)</label><input id="multi-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="multi-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="multi-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>Option Type</label><select id="multi-type"><option value="call">Call</option><option value="put">Put</option></select></div>
+                        <div class="inp"><label>Rates (CSV)</label><input id="multi-rates" type="text" value="0.01,0.03,0.05"></div>
+                    </div>
+
+                    <button class="run-btn" onclick="runMultiRateEngine()">Run Multi-Rate</button>
+                    <div id="multi-empty" class="emp-t">Awaiting multi-rate run...</div>
+
+                    <div id="multi-res" class="res-ct">
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Current underlying spot price used as the base input for all rate scenarios."><h3>Spot</h3><p id="multi-spot">—</p></div>
+                        <div class="rh-card bs-info-card" tabindex="0" data-desc="Total number of interest-rate scenarios evaluated in the multi-rate run."><h3>Scenarios</h3><p id="multi-count">—</p></div>
+                    </div>
+
+                    <div id="multi-chart-wrap" class="ct">
+                        <div class="cht-hd">Rate vs Price</div>
+                        <canvas id="multiChart"></canvas>
+                    </div>
+                </div>
+                <div class="page" id="batch-engine">
+                    <div class="mc-hd">
+                        <div class="mc-ey">Batch Engine</div>
+                        <div class="mc-h1">Multi-Stock Batch Pricing</div>
+                        <div class="mc-p">Select multiple stocks and run batched Black–Scholes pricing.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp">
+                            <label>Stocks (multi-select)</label>
+                            <select id="batch-tickers" multiple size="8"></select>
+                        </div>
+                        <div class="inp"><label>Strike (K)</label><input id="batch-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="batch-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="batch-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="batch-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp">
+                            <label>Option Type</label>
+                            <select id="batch-type"><option value="call">Call</option><option value="put">Put</option></select>
+                        </div>
+                    </div>
+
+                    <button class="run-btn" onclick="runBatchEngine()">Run Batch</button>
+                    <div id="batch-empty" class="emp-t">Awaiting batch run...</div>
+
+                    <div id="batch-res" class="ct">
+                        <div class="cht-hd">Batch Results</div>
+                        <div id="batch-table-wrap"></div>
+                    </div>
+                </div>
+                <div class="page" id="scenario-engine">
+                    <div class="mc-hd">
+                        <div class="mc-ey">Tools</div>
+                        <div class="mc-h1">Scenario Engine</div>
+                        <div class="mc-p">Stress option prices under spot and volatility shocks.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp"><label>Stock</label><select id="sc-ticker"></select></div>
+                        <div class="inp"><label>Market</label><input id="sc-market" type="text" value="—" readonly></div>
+                        <div class="inp"><label>Spot (S)</label><input id="sc-s" type="number" value="100"></div>
+                        <div class="inp"><label>Strike (K)</label><input id="sc-k" type="number" value="100"></div>
+                        <div class="inp"><label>Time (T)</label><input id="sc-t" type="number" value="1" step="0.01"></div>
+                        <div class="inp"><label>Rate (r)</label><input id="sc-r" type="number" value="0.05" step="0.001"></div>
+                        <div class="inp"><label>Vol (σ)</label><input id="sc-sigma" type="number" value="0.2" step="0.01"></div>
+                        <div class="inp"><label>Option Type</label><select id="sc-type"><option value="call">Call</option><option value="put">Put</option></select></div>
+                    </div>
+
+                    <button class="run-btn" onclick="runScenarioEngine()">Run Scenario</button>
+                    <div id="scenario-empty" class="emp-t">Awaiting scenario run...</div>
+
+                    <div id="scenario-table-wrap" class="ct">
+                        <div class="cht-hd">Scenario Table</div>
+                        <table style="width:100%; border-collapse:collapse; color:#cfe7ff;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Spot Shock</th>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Vol Shock</th>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scenario-table-body"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="scenario-chart-wrap" class="ct">
+                        <div class="cht-hd" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                            <span>Scenario Prices</span>
+                            <span style="font-size:0.72rem; color:#9fb8d4; display:flex; align-items:center; gap:12px;">
+                                <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:2px; background:rgba(0,120,255,0.86); display:inline-block;"></span>Blue: price ≥ base</span>
+                                <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:2px; background:rgba(245,40,80,0.86); display:inline-block;"></span>Red: price &lt; base</span>
+                                <span>S = Spot shock · V = Volatility shock</span>
+                            </span>
+                        </div>
+                        <canvas id="scenarioChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="page" id="history">
+                    <div class="mc-hd">
+                        <div class="mc-ey">Tools</div>
+                        <div class="mc-h1">History</div>
+                        <div class="mc-p">View and manage recorded simulation runs.</div>
+                    </div>
+                    <div style="padding: 20px 32px 8px; display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+                        <div class="inp" style="min-width:150px;">
+                            <label>Range</label>
+                            <select id="history-range">
+                                <option value="day">Day</option>
+                                <option value="week" selected>Week</option>
+                                <option value="month">Month</option>
+                                <option value="year">Year</option>
+                                <option value="all">All</option>
+                            </select>
+                        </div>
+
+                        <div class="inp" style="min-width:120px;">
+                            <label>Year</label>
+                            <select id="history-year"></select>
+                        </div>
+
+                        <div class="inp" style="min-width:130px;">
+                            <label>Month</label>
+                            <select id="history-month"></select>
+                        </div>
+
+                        <div class="inp" style="min-width:160px;">
+                            <label>Week</label>
+                            <select id="history-week"></select>
+                        </div>
+
+                        <div class="inp" style="min-width:170px;">
+                            <label>Date</label>
+                            <input id="history-date" type="date" />
+                        </div>
+
+                        <div class="inp" style="min-width:130px;">
+                            <label>Time From</label>
+                            <input id="history-time-from" type="time" />
+                        </div>
+
+                        <div class="inp" style="min-width:130px;">
+                            <label>Time To</label>
+                            <input id="history-time-to" type="time" />
+                        </div>
+
+                        <button class="run-btn" style="margin:0;" onclick="applyHistoryFilters()">Apply</button>
+                        <button class="run-btn" style="margin:0;" onclick="resetHistoryFilters()">Reset</button>
+                        <button class="run-btn" style="margin:0;" onclick="loadHistory()">Refresh</button>
+                        <button class="run-btn" id="history-clear-btn" style="margin:0;" onclick="clearHistory()">Clear History</button>
+                    </div>
+                    <div id="history-empty" class="emp-t">Loading history...</div>
+                    <div id="history-wrap" class="ct">
+                        <div class="cht-hd" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                            <span>Run Log</span>
+                            <span id="history-filter-info" style="font-size:0.72rem; color:#9fb8d4;"></span>
+                        </div>
+                        <table style="width:100%; border-collapse:collapse; color:#cfe7ff; font-size:0.78rem;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Timestamp</th>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Engine</th>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Ticker</th>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Market</th>
+                                    <th style="text-align:left; border-bottom:1px solid rgba(0,180,255,0.25); padding:8px;">Summary</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="page" id="results">
+                    <div class="mc-hd">
+                        <div class="mc-ey">Tools</div>
+                        <div class="mc-h1">Results</div>
+                        <div class="mc-p">Browse timestamped session folders and saved run outputs from this platform.</div>
+                    </div>
+
+                    <div class="results-toolbar">
+                        <div class="inp results-session-inp">
+                            <label>Session (Date)</label>
+                            <select id="results-session"></select>
+                        </div>
+                        <button class="run-btn results-btn" onclick="loadResultsSessions();">Refresh Sessions</button>
+                        <button class="run-btn results-btn" onclick="loadResultsTree();">Load Tree</button>
+                    </div>
+
+                    <div id="results-empty" class="emp-t">Loading results sessions...</div>
+
+                    <div id="results-wrap" class="results-wrap">
+                        <div class="results-grid">
+                            <div class="results-card results-tree-card">
+                                <div class="results-card-title">Session Folder Tree</div>
+                                <div id="results-tree" class="results-tree"></div>
+                            </div>
+
+                            <div class="results-right-col">
+                                <div class="results-card results-preview-card">
+                                    <div class="results-card-title">Selected File Preview</div>
+                                    <pre id="results-preview" class="results-preview">Select a .json file from the tree to preview contents.</pre>
+                                </div>
+
+                                <div class="results-card results-image-card">
+                                    <div class="results-card-title">Plot/Image Preview</div>
+                                    <div id="results-image-wrap" class="results-image-wrap">
+                                        <div id="results-image-empty" class="results-sub-empty">Select an image file from the tree to preview plot output.</div>
+                                        <img id="results-image" class="results-image" alt="Results plot preview" />
+                                    </div>
+                                </div>
+
+                                <div class="results-card results-table-card">
+                                    <div class="results-card-title">Data Table Preview</div>
+                                    <div id="results-table-meta" class="results-table-meta">Select a CSV/XLSX/JSON table-like file to preview rows.</div>
+                                    <div id="results-table-wrap" class="results-table-wrap">
+                                        <table class="results-table">
+                                            <thead id="results-table-head"></thead>
+                                            <tbody id="results-table-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="results-card results-ai-card">
+                                    <div class="results-card-title">AI Report Agent (Placeholder)</div>
+                                    <div class="results-ai-copy report-wrap">
+                                        <div class="report-grid">
+                                            <div class="report-card">
+                                                <div class="results-card-title">Training Files</div>
+                                                <div class="report-row">
+                                                    <div class="inp report-inp">
+                                                        <label>Training Category</label>
+                                                        <select id="report-training-type"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="report-row">
+                                                    <input id="report-training-files" class="report-file" type="file" multiple accept=".pdf,.docx,.txt,.md" />
+                                                </div>
+                                                <div class="report-help">Supported formats: .pdf, .docx, .txt, .md. Upload training files before report generation.</div>
+                                                <div class="report-row">
+                                                    <button class="run-btn report-btn" id="report-train-btn">Upload Training Files</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="report-card">
+                                                <div class="results-card-title">Report Generation</div>
+                                                <div class="report-row">
+                                                    <div class="inp report-inp">
+                                                        <label>Report Type</label>
+                                                        <select id="report-type"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="report-row report-two-col">
+                                                    <div class="inp report-inp">
+                                                        <label>Report Style</label>
+                                                        <select id="report-style"></select>
+                                                    </div>
+                                                    <div class="inp report-inp">
+                                                        <label>Author</label>
+                                                        <input id="report-author" type="text" value="Velkyn User" />
+                                                    </div>
+                                                </div>
+                                                <div class="report-row">
+                                                    <div class="inp report-inp" style="width:100%;">
+                                                        <label>Notes (optional)</label>
+                                                        <textarea id="report-notes" rows="4" style="width:100%; background: rgba(2,6,16,0.8); border:1px solid var(--border); color:#dfefff; border-radius:8px; padding:10px; font-family:var(--mono);"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="report-row">
+                                                    <button class="run-btn report-btn" id="report-generate-btn" disabled>Generate Word Report</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="report-status-card">
+                                            <div class="results-card-title">Status</div>
+                                            <div id="report-status" class="report-status" data-state="idle">Training required</div>
+                                            <div id="report-training-summary" class="report-summary">Upload training files and select a report type.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="live-market">
+                    <div class="mc-hd">
+                        <div class="mc-ey">Tools</div>
+                        <div class="mc-h1">Live Market</div>
+                        <div class="mc-p">Dedicated live market terminal for stock and crypto feeds. Runs automatically while this page is open.</div>
+                    </div>
+
+                    <div class="mc-ct">
+                        <div class="inp">
+                            <label>Asset Type</label>
+                            <select id="live-type">
+                                <option value="stock">Stock</option>
+                                <option value="crypto">Crypto</option>
+                            </select>
+                        </div>
+                        <div class="inp"><label>Symbol</label><select id="live-symbol"></select></div>
+                        <div class="inp"><label>Window (Days)</label><input id="live-days" type="number" min="1" max="7" step="1" value="1"></div>
+                        <div class="inp lm-refresh-wrap">
+                            <label>Live Feed</label>
+                            <div class="lm-refresh-row">
+                                <button type="button" id="lm-refresh-btn" class="lm-refresh-btn">Refresh</button>
+                                <span id="lm-feed-dot" class="lm-feed-dot" aria-label="Live feed status"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="lm-empty" class="emp-t">Connecting to live feed...</div>
+
+                    <div id="lm-res" class="lm-layout">
+                        <div class="lm-stats-panel">
+                            <div class="lm-stats-grid">
+                                <div><span>Price</span><b id="lm-price">—</b></div>
+                                <div><span>Change</span><b id="lm-change-abs">—</b></div>
+                                <div><span>% Chg</span><b id="lm-change-pct">—</b></div>
+                                <div><span>Volume</span><b id="lm-volume">—</b></div>
+                                <div><span>24h High</span><b id="lm-high">—</b></div>
+                                <div><span>24h Low</span><b id="lm-low">—</b></div>
+                                <div><span>Open</span><b id="lm-open">—</b></div>
+                                <div><span>Mkt Cap</span><b id="lm-mcap">—</b></div>
+                                <div><span>Session</span><b id="lm-session">—</b></div>
+                            </div>
+                        </div>
+
+                        <div id="lm-chart-wrap" class="lm-chart-panel">
+                            <div class="lm-head">
+                                <div class="cht-hd">Live Series</div>
+                                <div id="lm-age" class="lm-age">Last tick: —</div>
+                            </div>
+                            <div class="lm-chart-box">
+                                <canvas id="lm-chart"></canvas>
+                            </div>
+                            <div class="lm-foot">
+                                <span>Bid: <b id="lm-bid">—</b> Ask: <b id="lm-ask">—</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="settings">
+                    <div class="mc-hd">
+                        <div class="mc-ey">System</div>
+                        <div class="mc-h1">Settings</div>
+                        <div class="mc-p">Showcase configuration panel for platform defaults, provider roadmap, and runtime preferences (preview mode).</div>
+                    </div>
+
+                    <div class="settings-wrap">
+                        <div class="settings-banner" id="settings-empty">Preview Mode: these settings demonstrate v2 capability and currently do not change live engine behavior.</div>
+
+                        <div class="settings-grid">
+                            <div class="settings-card">
+                            <div class="settings-hd">
+                                <h3>API Providers</h3>
+                                <span class="settings-badge">Roadmap Ready</span>
+                            </div>
+
+                            <div class="settings-row">
+                                <div class="inp">
+                                    <label>Stocks Data API</label>
+                                    <select id="set-api-stocks">
+                                        <option value="yahoo">Yahoo Finance (Active)</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Upgrade Path (Locked)</label>
+                                    <select id="set-api-stocks-upgrade" disabled>
+                                        <option>Polygon.io (Coming Soon)</option>
+                                        <option>Alpha Vantage (Coming Soon)</option>
+                                        <option>IEX Cloud (Coming Soon)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="settings-row">
+                                <div class="inp">
+                                    <label>Crypto Data API</label>
+                                    <select id="set-api-crypto">
+                                        <option value="yahoo">Yahoo Finance (Active)</option>
+                                        <option value="binance">Binance Feed (Available)</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Upgrade Path (Locked)</label>
+                                    <select id="set-api-crypto-upgrade" disabled>
+                                        <option>Coinbase Advanced (Coming Soon)</option>
+                                        <option>Kaiko (Coming Soon)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="settings-row">
+                                <div class="inp">
+                                    <label>Backend Mode</label>
+                                    <select id="set-api-backend">
+                                        <option value="local-fastapi">Local FastAPI (Active)</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Cloud Endpoint (Locked)</label>
+                                    <input id="set-api-cloud-endpoint" type="text" value="https://api.velkyn.ai (v2)" readonly>
+                                </div>
+                            </div>
+
+                            <div class="settings-note">Upgrade selections are intentionally locked for public users in this version.</div>
+                        </div>
+
+                            <div class="settings-card">
+                            <div class="settings-hd">
+                                <h3>Default Inputs</h3>
+                                <span class="settings-badge">Personal</span>
+                            </div>
+
+                            <div class="settings-row">
+                                <div class="inp">
+                                    <label>Default Ticker</label>
+                                    <input id="set-default-ticker" type="text" value="AAPL">
+                                </div>
+                                <div class="inp">
+                                    <label>Default Market</label>
+                                    <select id="set-default-market">
+                                        <option value="NASDAQ">NASDAQ</option>
+                                        <option value="NYSE">NYSE</option>
+                                        <option value="CRYPTO">CRYPTO</option>
+                                        <option value="INDEX">INDEX</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="settings-row settings-row-3">
+                                <div class="inp">
+                                    <label>Default Option Type</label>
+                                    <select id="set-default-option-type">
+                                        <option value="call">Call</option>
+                                        <option value="put">Put</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Default Rate (r)</label>
+                                    <input id="set-default-rate" type="number" value="0.05" step="0.001">
+                                </div>
+                                <div class="inp">
+                                    <label>Default Volatility (σ)</label>
+                                    <input id="set-default-vol" type="number" value="0.2" step="0.01">
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="settings-card">
+                            <div class="settings-hd">
+                                <h3>Data &amp; Refresh</h3>
+                                <span class="settings-badge">Runtime</span>
+                            </div>
+
+                            <div class="settings-row settings-row-3">
+                                <div class="inp">
+                                    <label>Auto Refresh</label>
+                                    <select id="set-auto-refresh">
+                                        <option value="on">On</option>
+                                        <option value="off">Off</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Polling Interval (sec)</label>
+                                    <select id="set-poll-seconds">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Market Hours Filter</label>
+                                    <select id="set-market-hours-only">
+                                        <option value="on">On</option>
+                                        <option value="off">Off</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="settings-row">
+                                <div class="inp">
+                                    <label>History Retention</label>
+                                    <select id="set-history-retention">
+                                        <option value="30d">30 days</option>
+                                        <option value="90d">90 days</option>
+                                        <option value="365d">365 days</option>
+                                        <option value="forever">Forever</option>
+                                    </select>
+                                </div>
+                                <div class="inp">
+                                    <label>Default Landing Page</label>
+                                    <select id="set-default-page">
+                                        <option value="home">Home</option>
+                                        <option value="dashboard">Dashboard</option>
+                                        <option value="live-market">Live Market</option>
+                                        <option value="history">History</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="settings-card">
+                            <div class="settings-hd">
+                                <h3>System Information</h3>
+                                <span class="settings-badge">Read Only</span>
+                            </div>
+
+                            <div class="settings-info-grid">
+                                <div><span>Platform</span><b>Velkyn Analytics</b></div>
+                                <div><span>Build</span><b>v2.0-local</b></div>
+                                <div><span>Backend</span><b id="set-info-backend">127.0.0.1:8000</b></div>
+                                <div><span>Frontend</span><b id="set-info-frontend">127.0.0.1:5500</b></div>
+                                <div><span>Environment</span><b id="set-info-env">Local Development</b></div>
+                                <div><span>Admin Scope</span><b>This Computer Only</b></div>
+                            </div>
+
+                            <div class="settings-actions">
+                                <button class="run-btn settings-btn" onclick="saveSettings()">Save (Preview)</button>
+                                <button class="run-btn settings-btn" onclick="resetSettings()">Reset (Preview)</button>
+                            </div>
+                            <div id="settings-status" class="settings-status">Showcase mode active.</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="page" id="docs">
+                    <div class="mc-hd">
+                        <div class="mc-ey">System</div>
+                        <div class="mc-h1">Documentation</div>
+                        <div class="mc-p">Technical reference and operational guide for Velkyn Analytics Platform.</div>
+                    </div>
+
+                    <div class="docs-wrap">
+                        <div class="docs-banner">
+                            Version: v2.0-local · Scope: Local-first quant platform · Status: Public showcase mode
+                        </div>
+
+                        <div class="docs-grid docs-grid-2">
+                            <article class="docs-card">
+                                <h3>Quick Start</h3>
+                                <ol>
+                                    <li>Start backend service and frontend static host.</li>
+                                    <li>Open platform in browser and verify Dashboard loads.</li>
+                                    <li>Run an engine page first, then review consolidated Dashboard.</li>
+                                    <li>Use Results page for artifact browsing and History for run audit.</li>
+                                </ol>
+                            </article>
+
+                            <article class="docs-card">
+                                <h3>Environment</h3>
+                                <ul>
+                                    <li><strong>Frontend:</strong> localhost:5500</li>
+                                    <li><strong>Backend:</strong> localhost:8000</li>
+                                    <li><strong>API Docs:</strong> backend /docs route</li>
+                                    <li><strong>Persistence:</strong> results/data/history_runs.jsonl + session folders</li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <article class="docs-card">
+                            <h3>Engine Guide</h3>
+                            <div class="docs-engine-grid">
+                                <div><h4>Monte Carlo</h4><p>GBM simulation with confidence diagnostics and path/distribution outputs.</p></div>
+                                <div><h4>Black-Scholes</h4><p>Closed-form pricing, Greeks, and implied volatility solving.</p></div>
+                                <div><h4>Binomial Tree</h4><p>European/American valuation and convergence behaviour vs benchmark.</p></div>
+                                <div><h4>Volatility</h4><p>Smile/surface structure for strike-tenor volatility interpretation.</p></div>
+                                <div><h4>Scenario</h4><p>Spot/volatility shock matrix for stress-testing option valuations.</p></div>
+                                <div><h4>Multi-Rate</h4><p>Rate-sensitive repricing across configurable interest-rate sets.</p></div>
+                                <div><h4>Batch</h4><p>Multi-ticker pricing runs for faster comparative exploration.</p></div>
+                                <div><h4>Live + Dashboard</h4><p>Live context overlays and cross-engine consolidated analytics view.</p></div>
+                            </div>
+                        </article>
+
+                        <article class="docs-card">
+                            <h3>Internal API Reference</h3>
+                            <div class="docs-table-wrap">
+                                <table class="docs-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Module</th>
+                                            <th>Endpoint</th>
+                                            <th>Purpose</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>MC</td><td>POST /mc/mc/run</td><td>Monte Carlo simulation pricing</td></tr>
+                                        <tr><td>BS</td><td>POST /bs/bs/pricing · /greeks · /iv</td><td>Analytical pricing and sensitivities</td></tr>
+                                        <tr><td>Binomial</td><td>POST /binomial/binomial/european · /american · /convergence</td><td>Tree model valuation and sweep</td></tr>
+                                        <tr><td>Vol</td><td>POST /vol/vol/smile · /surface</td><td>Volatility structures</td></tr>
+                                        <tr><td>Scenario</td><td>POST /scenario/scenario/run</td><td>Stress grid generation</td></tr>
+                                        <tr><td>Multi-Rate</td><td>POST /multi-rate/multi-rate/run</td><td>Rate sensitivity analysis</td></tr>
+                                        <tr><td>Batch</td><td>POST /batch/batch/run</td><td>Multi-stock batch pricing</td></tr>
+                                        <tr><td>History</td><td>GET/POST/DELETE /history/history/runs</td><td>Run logging and retrieval</td></tr>
+                                        <tr><td>Live</td><td>POST /live/live/quote</td><td>Live quote and rolling series</td></tr>
+                                        <tr><td>Results</td><td>GET /results/results/sessions · /tree · /asset · /table</td><td>Artifact browsing and previews</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
+
+                        <div class="docs-grid docs-grid-2">
+                            <article class="docs-card">
+                                <h3>Data Sources</h3>
+                                <ul>
+                                    <li><strong>Stocks:</strong> Yahoo Finance (active)</li>
+                                    <li><strong>Crypto:</strong> Yahoo Finance + Binance support path</li>
+                                    <li><strong>Backend:</strong> Local FastAPI service</li>
+                                    <li><strong>Upgrade Capability:</strong> Provider switching visible in Settings (locked in this release)</li>
+                                </ul>
+                            </article>
+
+                            <article class="docs-card">
+                                <h3>Settings Policy</h3>
+                                <ul>
+                                    <li>Settings page is currently showcase mode for v2 UX signaling.</li>
+                                    <li>Provider upgrade controls are intentionally locked for public users.</li>
+                                    <li>Preview save/reset actions do not alter live engine behavior.</li>
+                                    <li>Full profile-based settings persistence is planned in v2.</li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <article class="docs-card">
+                            <h3>Troubleshooting</h3>
+                            <div class="docs-grid docs-grid-2">
+                                <ul>
+                                    <li><strong>Port Busy:</strong> Stop existing listeners on 5500/8000 before restart.</li>
+                                    <li><strong>Stale UI:</strong> Use cache-busting query suffix after frontend updates.</li>
+                                    <li><strong>Blank Chart:</strong> Confirm backend endpoint returns expected payload rows.</li>
+                                    <li><strong>No History Rows:</strong> Verify filters are set to intended period (default = current week).</li>
+                                </ul>
+                                <ul>
+                                    <li><strong>Clear History Denied:</strong> Operation is restricted to local-machine requests.</li>
+                                    <li><strong>Live Feed Delay:</strong> Use manual refresh and check backend response status.</li>
+                                    <li><strong>Table Not Updating:</strong> Confirm module script cache version is latest.</li>
+                                    <li><strong>General Recovery:</strong> Perform clean restart of backend + frontend services.</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="docs-card">
+                            <h3>Roadmap (v2)</h3>
+                            <ul>
+                                <li>User accounts and permissioned profiles</li>
+                                <li>Provider upgrades and key-based API routing</li>
+                                <li>Cloud backend deployment mode and remote endpoint management</li>
+                                <li>Persistent user settings and environment-level policies</li>
+                                <li>Expanded report agent automation and deployment workflows</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+                <div class="page" id="about">
+                    <div class="hud-canvas">
+                        <div class="hex-bg"></div>
+                        <div class="hring hr1"></div>
+                        <div class="hring hr2"></div>
+                        <div class="hring hr3"></div>
+                        <div class="hring hr4"></div>
+                    </div>
+
+                    <div class="scan">
+                        <div class="ds ds1"></div>
+                        <div class="ds ds2"></div>
+                        <div class="ds ds3"></div>
+                        <div class="ds ds4"></div>
+                    </div>
+
+                    <div class="about-page">
+                        <section class="about-hero">
+                            <div class="about-ey">About Velkyn Analytics</div>
+                            <h1 class="about-h1">Velkyn Analytics Platform</h1>
+                            <p class="about-lead">
+                                Velkyn Analytics is a modular quantitative research platform built for option valuation,
+                                risk diagnostics, and decision-grade scenario workflows with a live market context.
+                            </p>
+                        </section>
+
+                        <section class="about-top-grid">
+                            <article class="about-card">
+                                <h3>Founder</h3>
+                                <p>
+                                    Aditya Bag is a quantitative developer and engineer based in London, UK, with an engineering
+                                    background spanning Motorsport &amp; Automotive Engineering (MSc, Brunel University London)
+                                    and Mechanical Engineering – Automobile (B.Tech, KIIT University).
+                                </p>
+                                <p>
+                                    The platform combines mathematical modelling, practical software architecture, and
+                                    frontend usability to bridge research experimentation and production-style analytics.
+                                </p>
+                                <p>
+                                    Velkyn Analytics began as an R&amp;D initiative and evolved into a cohesive stack of pricing
+                                    engines, comparison dashboards, results management, and live-data modules focused on
+                                    reproducibility, numerical integrity, and scalability.
+                                </p>
+                            </article>
+
+                            <article class="about-card">
+                                <h3>Platform Design</h3>
+                                <ul>
+                                    <li><strong>Unified Workflow:</strong> run focused engines independently, then inspect a consolidated dashboard view.</li>
+                                    <li><strong>Mathematical Core:</strong> Black-Scholes analytics, Monte Carlo simulation, binomial trees, and IV structures.</li>
+                                    <li><strong>Risk + Sensitivity:</strong> Greeks, scenario shocks, multi-rate analysis, and convergence diagnostics.</li>
+                                    <li><strong>Operational Layer:</strong> batch execution, historical run logs, and organized results sessions.</li>
+                                    <li><strong>Live Context:</strong> market snapshots and rolling series to ground model runs in current conditions.</li>
+                                </ul>
+                            </article>
+                        </section>
+
+                        <section class="about-engines">
+                            <h2>Engine Methods &amp; Outputs</h2>
+                            <div class="about-engine-grid">
+                                <article class="about-engine-card">
+                                    <h4>Monte Carlo Engine</h4>
+                                    <p><strong>Inputs:</strong> $S_0, K, r, \sigma, T,$ paths $M,$ steps $n,$ option type.</p>
+                                    <p><strong>Method:</strong> GBM dynamics $dS_t = \mu S_tdt + \sigma S_tdW_t$, simulated in discrete time, with variance-reduction methods (antithetic, control variate, moment matching, variable-day horizon).</p>
+                                    <p><strong>Outputs:</strong> option price, standard error, confidence interval, path chart, terminal distribution.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Black-Scholes Engine</h4>
+                                    <p><strong>Inputs:</strong> $S, K, r, \sigma, T,$ option type, market option price (for IV).</p>
+                                    <p><strong>Method:</strong> closed-form pricing with $d_1 = \frac{\ln(S/K) + (r + \frac{1}{2}\sigma^2)T}{\sigma\sqrt{T}}$, $d_2 = d_1 - \sigma\sqrt{T}$ and normal CDF $N(\cdot)$.</p>
+                                    <p><strong>Outputs:</strong> call/put values, Greeks (Delta, Gamma, Vega, Theta, Rho), implied volatility solution.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Binomial Tree Engine</h4>
+                                    <p><strong>Inputs:</strong> $S, K, r, \sigma, T,$ steps $N,$ option type/style.</p>
+                                    <p><strong>Method:</strong> CRR tree with $u=e^{\sigma\sqrt{\Delta t}}$, $d=1/u$, risk-neutral probability $p=\frac{e^{r\Delta t}-d}{u-d}$ and backward induction.</p>
+                                    <p><strong>Outputs:</strong> European and American prices, BS benchmark comparison, convergence behavior.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Volatility Engine</h4>
+                                    <p><strong>Inputs:</strong> base volatility, strike/maturity ranges, rate and spot context.</p>
+                                    <p><strong>Method:</strong> synthetic smile/surface construction over strike-tenor grids to visualize implied-volatility structure and skew/term behavior.</p>
+                                    <p><strong>Outputs:</strong> smile curve chart and surface snapshot for relative vol structure analysis.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Multi-Rate Engine</h4>
+                                    <p><strong>Inputs:</strong> ticker, $K, T, \sigma,$ option type, list of rates $\{r_i\}$.</p>
+                                    <p><strong>Method:</strong> reprice the same contract under each rate scenario, i.e. evaluate $C(r_i)$ or $P(r_i)$ across the grid.</p>
+                                    <p><strong>Outputs:</strong> scenario count, baseline spot, and rate-vs-price sensitivity curve.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Scenario Engine</h4>
+                                    <p><strong>Inputs:</strong> baseline option parameters plus spot/volatility shock vectors.</p>
+                                    <p><strong>Method:</strong> stress pricing under transformed states $S' = S(1+\delta_S)$, $\sigma' = \sigma(1+\delta_\sigma)$ and recompute option value per scenario.</p>
+                                    <p><strong>Outputs:</strong> scenario table and comparative chart of stressed option prices.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Batch &amp; History Modules</h4>
+                                    <p><strong>Inputs:</strong> multi-ticker set and shared model parameters; run metadata over time.</p>
+                                    <p><strong>Method:</strong> vectorized/repeated pricing execution with structured logging and retrieval.</p>
+                                    <p><strong>Outputs:</strong> consolidated batch result table and persistent run-audit history.</p>
+                                </article>
+
+                                <article class="about-engine-card">
+                                    <h4>Live Market &amp; Dashboard</h4>
+                                    <p><strong>Inputs:</strong> selected asset class/symbol, refresh cadence, display mode.</p>
+                                    <p><strong>Method:</strong> stream quote/series data, derive OHLC and volume context, aggregate cross-engine summaries on dashboard.</p>
+                                    <p><strong>Outputs:</strong> live pricing panels, gradient/candlestick charts, volume overlay, and real-time summary views.</p>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="sim-load" id="simLoad">
+        <div class="bk bk-tl"></div>
+        <div class="bk bk-tr"></div>
+        <div class="bk bk-bl"></div>
+        <div class="bk bk-br"></div>
+
+        <svg style="position:absolute;width:0;height:0;overflow:hidden;">
+            <defs>
+                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0055dd"></stop>
+                    <stop offset="50%" stop-color="#00bbff"></stop>
+                    <stop offset="100%" stop-color="#00ffee"></stop>
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <div class="ring-wrap">
+            <svg viewBox="0 0 128 128">
+                <circle class="r-track" cx="64" cy="64" r="53"></circle>
+                <circle class="r-spin" cx="64" cy="64" r="60"></circle>
+                <circle class="r-fill" cx="64" cy="64" r="53" id="ringArc"></circle>
+            </svg>
+            <div class="ring-inner">
+                <div class="ring-pct" id="ringPct">0%</div>
+                <div class="ring-pct-sub">PROGRESS</div>
+            </div>
+        </div>
+
+        <div class="sim-lbl" id="simLbl">Running Simulation</div>
+        <div class="sim-sub" id="simSub">INITIALISING ENGINE...</div>
+
+        <div class="sim-barwrap">
+            <div class="sim-barfill" id="simBar"></div>
+        </div>
+
+        <div class="sim-log" id="simLog"></div>
+    </div>
+
+    <!-- JS -->
+    <script src="scripts/app.js?v=20260228-6"></script>
+    <script src="scripts/nav.js?v=20260228-3"></script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/stocks.js?v=20260227-1"></script>
+    <script src="scripts/runlog.js?v=20260228-2"></script>
+    <script src="scripts/mc.js?v=20260228-7"></script>
+    <script src="scripts/bs.js?v=20260227-5"></script>
+    <script src="scripts/binomial.js?v=20260228-4"></script>
+    <script src="scripts/smile.js?v=20260227-3"></script>
+    <script src="scripts/multi.js?v=20260228-4"></script>
+    <script src="scripts/scenario.js?v=20260304-4"></script>
+    <script src="scripts/batch.js?v=20260228-3"></script>
+    <script src="scripts/results.js?v=20260228-2"></script>
+    <script src="scripts/report_agent.js?v=20260303-1"></script>
+    <script src="scripts/history.js?v=20260304-2"></script>
+    <script src="scripts/settings.js?v=20260304-2"></script>
+    <script src="scripts/live.js?v=20260303-9"></script>
+    <script src="scripts/dashboard.js?v=20260228-6"></script>
+
+</body>
+</html>

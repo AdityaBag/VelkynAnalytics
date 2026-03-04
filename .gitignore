@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local outputs and logs
+results/data/*.jsonl
+results/sessions/
+results/reports/
+*.log
+
+# Training temporary artifacts
+training_materials/tmp_train_report.md
+
+# Build / tooling
+.coverage
+htmlcov/

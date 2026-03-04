@@ -1,0 +1,53 @@
+{
+  "report_type": "Pricing & Valuation Report",
+  "updated_at": "2026-03-03T02:39:43.816165Z",
+  "doc_count": 1,
+  "total_chars": 675,
+  "files": [
+    {
+      "name": "20260303_023943_tmp_train_report.md",
+      "path": "training_materials/uploads/pricing-valuation-report/20260303_023943_tmp_train_report.md",
+      "size": 686,
+      "chars": 675,
+      "uploaded_at": "2026-03-03T02:39:43.812641Z"
+    }
+  ],
+  "structure": {
+    "headings": [
+      "Methodology",
+      "We define a clear methodology for model validation and assumptions.",
+      "Results",
+      "Results indicate pricing consistency and robust output diagnostics.",
+      "Interpretation",
+      "Interpretation discusses implications, risk and conclusion with formal analysis."
+    ]
+  },
+  "tone": {
+    "scores": {
+      "formal": 4,
+      "academic": 4,
+      "risk-focused": 4,
+      "research": 1,
+      "sell-side": 0
+    },
+    "dominant": "formal"
+  },
+  "narrative": {
+    "methodology": true,
+    "results": true,
+    "interpretation": true,
+    "flow": "methodology → results → interpretation"
+  },
+  "common_phrases": [],
+  "example_paragraphs": [
+    "This paragraph is intentionally long for example extraction and includes therefore furthermore accordingly methodology results interpretation stress risk profile and benchmark alignment for narrative quality checks.",
+    "A second long paragraph provides additional example prose with academic framing, empirical observations, and discussion of limitations and next steps in a risk-focused context for model governance."
+  ],
+  "capabilities": {
+    "structure": true,
+    "tone": true,
+    "narrative": true,
+    "examples": true,
+    "ready": true
+  }
+}
