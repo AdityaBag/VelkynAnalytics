@@ -4,9 +4,12 @@ A local-first, full-stack quantitative analytics platform for options research, 
 
 ## Live App
 
-Public URL: https://velkynanalytics.onrender.com/
+Primary Public URL: https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/
 
-AWS Lambda URL: https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/
+Current production deployment is the AWS Lambda + API Gateway deployment in `eu-west-2`.
+
+Stage 1 deployment proof: Render testing deployment was completed at:
+- https://velkynanalytics.onrender.com/
 
 Velkyn Analytics combines a FastAPI backend, modular pricing engines, and a single-page frontend to deliver:
 - Monte Carlo pricing with diagnostics
@@ -57,10 +60,10 @@ FastAPI Backend (router modules)
 - Health check: `http://127.0.0.1:8000/health`
 
 ### Runtime topology (live)
-- Render full-app deployment: `https://velkynanalytics.onrender.com/`
-- AWS Lambda + API Gateway deployment: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/`
+- Primary production deployment: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/`
 - AWS health check: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/health`
 - AWS docs: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/docs`
+- Stage 1 Render testing deployment: `https://velkynanalytics.onrender.com/`
 
 ### Router prefix note
 Current endpoint paths include repeated segments (example: `/mc/mc/run`) because app-level and router-level prefixes are both defined.
@@ -244,9 +247,11 @@ Then open:
 
 ---
 
-## 6B. Public One-Link Deployment (Render + GitHub)
+## 6B. Stage 1 Deployment Testing Phase (Render + GitHub)
 
 This repository includes `render.yaml` to deploy the full app (FastAPI + static frontend) as one web service.
+
+This was the initial public deployment and testing phase before the final AWS rollout. It is retained here as deployment proof, but it is no longer the primary public link.
 
 ### Steps
 1. Push this project to a GitHub repository.
@@ -328,6 +333,8 @@ If you need VPC networking, autoscaling controls, or multi-service architecture 
 ## 6E. AWS Lambda Container-Image Deployment (Current Live Path)
 
 The project is now deployed in AWS `eu-west-2` using a Lambda container image behind HTTP API Gateway.
+
+This is the final and primary public deployment path.
 
 ### Live components
 - ECR repository: `velkyn-lambda`
