@@ -1,0 +1,13 @@
+FROM public.ecr.aws/lambda/python:3.12
+
+ENV MPLCONFIGDIR=/tmp/matplotlib
+
+# Install app dependencies into Lambda task root.
+COPY requirements.txt ${LAMBDA_TASK_ROOT}/
+RUN pip install --no-cache-dir -r ${LAMBDA_TASK_ROOT}/requirements.txt
+
+# Copy full application for router imports and static frontend serving.
+COPY . ${LAMBDA_TASK_ROOT}
+
+# Lambda entrypoint: module.function
+CMD ["backend.lambda_handler.handler"]

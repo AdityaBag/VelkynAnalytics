@@ -84,7 +84,7 @@ async function runMC() {
         // Required by backend schema
         days: parseInt(document.getElementById('mc-days').value, 10),
         seed: 0,
-        sample_paths: safePaths
+        sample_paths: Math.min(safePaths, 50)
     };
 
     const expectedMs = Math.max(1000, Math.min(30000, Math.round((safePaths * safeSteps) / 700)));

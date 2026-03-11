@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Optional
 import json
 import mimetypes
+import os
 
 import pandas as pd
 from fastapi import APIRouter, HTTPException, Query
@@ -14,7 +15,8 @@ from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/results", tags=["Results"])
 
-RESULTS_ROOT = Path("results")
+IS_LAMBDA = bool(os.getenv("AWS_LAMBDA_FUNCTION_NAME"))
+RESULTS_ROOT = Path("/tmp/results") if IS_LAMBDA else Path("results")
 SESSIONS_ROOT = RESULTS_ROOT / "sessions"
 SESSIONS_ROOT.mkdir(parents=True, exist_ok=True)
 

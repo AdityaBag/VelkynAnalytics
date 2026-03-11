@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  velkynanalytics:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: velkynanalytics
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    restart: unless-stopped

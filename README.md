@@ -6,6 +6,8 @@ A local-first, full-stack quantitative analytics platform for options research, 
 
 Public URL: https://velkynanalytics.onrender.com/
 
+AWS Lambda URL: https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/
+
 Velkyn Analytics combines a FastAPI backend, modular pricing engines, and a single-page frontend to deliver:
 - Monte Carlo pricing with diagnostics
 - Black-Scholes pricing, Greeks, and implied volatility
@@ -53,6 +55,12 @@ FastAPI Backend (router modules)
 - Backend: `http://127.0.0.1:8000`
 - Swagger docs: `http://127.0.0.1:8000/docs`
 - Health check: `http://127.0.0.1:8000/health`
+
+### Runtime topology (live)
+- Render full-app deployment: `https://velkynanalytics.onrender.com/`
+- AWS Lambda + API Gateway deployment: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/`
+- AWS health check: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/health`
+- AWS docs: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/docs`
 
 ### Router prefix note
 Current endpoint paths include repeated segments (example: `/mc/mc/run`) because app-level and router-level prefixes are both defined.
@@ -250,6 +258,112 @@ No local frontend/backend startup is required for end users when hosted this way
 
 ---
 
+## 6C. Docker Workflow (AWS Preparation)
+
+This repository includes Docker support for containerized local runs and cloud deployment workflows.
+
+### Files
+- `Dockerfile`
+- `.dockerignore`
+- `docker-compose.yml`
+- `.devcontainer/devcontainer.json` (optional for VS Code)
+
+### Build image
+```bash
+docker build -t velkynanalytics:latest .
+```
+
+### Run container
+```bash
+docker run --rm -p 8000:8000 velkynanalytics:latest
+```
+
+Then open:
+- `http://127.0.0.1:8000/`
+- `http://127.0.0.1:8000/health`
+
+### Run with Docker Compose
+```bash
+docker compose up --build
+```
+
+This single-container runtime serves both backend APIs and the frontend SPA from one process.
+
+---
+
+## 6D. AWS Deployment Note (ECR + App Runner)
+
+After validating locally with Docker, you can deploy the same image to AWS.
+
+### 1. Build and tag image
+```bash
+docker build -t velkynanalytics:latest .
+docker tag velkynanalytics:latest <aws_account_id>.dkr.ecr.<region>.amazonaws.com/velkynanalytics:latest
+```
+
+### 2. Push to ECR
+```bash
+aws ecr create-repository --repository-name velkynanalytics --region <region>
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+docker push <aws_account_id>.dkr.ecr.<region>.amazonaws.com/velkynanalytics:latest
+```
+
+### 3. Deploy via AWS App Runner (recommended first path)
+- Create a new **App Runner** service from **ECR image**.
+- Image URI: `<aws_account_id>.dkr.ecr.<region>.amazonaws.com/velkynanalytics:latest`
+- Container port: `8000`
+- Runtime environment variable: `PORT=8000`
+
+App Runner will provide a public HTTPS URL once deployment is complete.
+
+### 4. Post-deploy checks
+- `GET /health` returns `{"status":"backend running"}`
+- Frontend loads at `/`
+- API docs available at `/docs`
+
+If you need VPC networking, autoscaling controls, or multi-service architecture later, migrate this image to ECS/Fargate using the same ECR artifact.
+
+---
+
+## 6E. AWS Lambda Container-Image Deployment (Current Live Path)
+
+The project is now deployed in AWS `eu-west-2` using a Lambda container image behind HTTP API Gateway.
+
+### Live components
+- ECR repository: `velkyn-lambda`
+- Lambda function: `velkyn-analytics-api`
+- API Gateway HTTP API: `https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/`
+
+### Lambda entrypoint
+- Runtime model: container image
+- Handler: `backend.lambda_handler.handler`
+
+### Build and push flow
+```bash
+docker buildx build --platform linux/amd64 --provenance=false -f Dockerfile.lambda \
+  -t <aws_account_id>.dkr.ecr.eu-west-2.amazonaws.com/velkyn-lambda:latest \
+  --push .
+```
+
+### Update Lambda from the pushed image
+```bash
+aws lambda update-function-code \
+  --function-name velkyn-analytics-api \
+  --image-uri <aws_account_id>.dkr.ecr.eu-west-2.amazonaws.com/velkyn-lambda:latest \
+  --region eu-west-2
+```
+
+### API Gateway validation
+```bash
+curl https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/health
+curl https://bdk7rr3l18.execute-api.eu-west-2.amazonaws.com/
+```
+
+### Operational note for Monte Carlo in Lambda
+Large Monte Carlo responses can exceed Lambda/API response size limits if too many sample paths are returned to the browser. The frontend now caps `sample_paths` for the Monte Carlo page so the UI remains stable while full simulation path counts are still used for pricing.
+
+---
+
 ## 7. Data and Persistence
 
 ### History log
@@ -326,6 +440,11 @@ For production deployment, implement:
 - Confirm frontend host is active on port `5500`
 - Check browser dev tools network calls to backend
 - Verify endpoint paths include duplicate prefix segments
+
+### Monte Carlo page shows backend error in cloud
+- Confirm the UI is calling `POST /mc/mc/run`
+- Check Lambda CloudWatch logs for `Failed to post handler success response` / `413`
+- If present, the response payload is too large; reduce returned sample-path volume rather than changing engine logic
 
 ### Live data seems stale
 - Re-run backend

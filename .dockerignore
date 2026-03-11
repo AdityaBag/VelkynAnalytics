@@ -1,0 +1,28 @@
+# Git and local tooling
+.git
+.gitignore
+.vscode/
+.idea/
+
+# Python caches and virtual envs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+venv/
+.venv/
+env/
+
+# Large local output artifacts
+Backup/
+archive/
+results/batches/
+results/sessions/
+results/reports/
+results/data/history_runs.jsonl
+
+# OS files
+.DS_Store
+Thumbs.db

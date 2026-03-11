@@ -7,6 +7,7 @@ from typing import Any
 import base64
 import json
 import re
+import os
 
 from docx import Document
 from docx.shared import Inches
@@ -26,10 +27,13 @@ from backend.report_training import (
 
 router = APIRouter(prefix="/report-agent", tags=["Report Agent"])
 
-TRAINING_ROOT = Path("training_materials")
+IS_LAMBDA = bool(os.getenv("AWS_LAMBDA_FUNCTION_NAME"))
+BASE_WRITE_ROOT = Path("/tmp") if IS_LAMBDA else Path(".")
+
+TRAINING_ROOT = BASE_WRITE_ROOT / "training_materials"
 TRAINING_UPLOADS = TRAINING_ROOT / "uploads"
 TRAINING_PROFILES = TRAINING_ROOT / "profiles"
-REPORT_OUTPUT_ROOT = Path("results") / "reports"
+REPORT_OUTPUT_ROOT = BASE_WRITE_ROOT / "results" / "reports"
 
 for folder in (TRAINING_ROOT, TRAINING_UPLOADS, TRAINING_PROFILES, REPORT_OUTPUT_ROOT):
     folder.mkdir(parents=True, exist_ok=True)

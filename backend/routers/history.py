@@ -3,12 +3,14 @@ from fastapi import HTTPException, Request
 from pydantic import BaseModel, Field
 from pathlib import Path
 import json
+import os
 
 
 router = APIRouter(prefix="/history", tags=["History"])
 
 
-HISTORY_FILE = Path("results/data/history_runs.jsonl")
+IS_LAMBDA = bool(os.getenv("AWS_LAMBDA_FUNCTION_NAME"))
+HISTORY_FILE = Path("/tmp/results/data/history_runs.jsonl") if IS_LAMBDA else Path("results/data/history_runs.jsonl")
 HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 
